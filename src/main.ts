@@ -17,8 +17,8 @@ import { TOTAL_CELLS } from './grid';
 
 // Global state
 let backgroundRenderer: BackgroundRenderer | null = null;
-let travelScene: TravelScene | null = null;
-let devScene: DevScene | null = null;
+let _travelScene: TravelScene | null = null;
+let _devScene: DevScene | null = null;
 
 /**
  * Initialize application
@@ -38,10 +38,10 @@ async function init(): Promise<void> {
   const devZone = document.getElementById('bg-dev');
 
   if (travelZone) {
-    travelScene = new TravelScene(travelZone);
+    _travelScene = new TravelScene(travelZone);
   }
   if (devZone) {
-    devScene = new DevScene(devZone);
+    _devScene = new DevScene(devZone);
   }
 
   // Initialize grid cells

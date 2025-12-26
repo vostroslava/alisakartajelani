@@ -54,8 +54,9 @@ export async function exportPNG(quality: 'normal' | 'print' = 'normal'): Promise
 
     const cells = grid.querySelectorAll('.cell');
     const gridRect = grid.getBoundingClientRect();
-    const gridOffsetX = gridRect.left - rect.left;
-    const gridOffsetY = gridRect.top - rect.top;
+    // Grid offsets for future use
+    const _gridOffsetX = gridRect.left - rect.left;
+    const _gridOffsetY = gridRect.top - rect.top;
 
     for (const cell of cells) {
         const cellRect = cell.getBoundingClientRect();

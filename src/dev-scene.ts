@@ -126,7 +126,7 @@ export class DevScene {
         ctx.fill();
     }
 
-    private drawCode(x: number, y: number, maxWidth: number, maxHeight: number): void {
+    private drawCode(x: number, y: number, _maxWidth: number, maxHeight: number): void {
         const ctx = this.ctx;
         const lineHeight = 18;
         const fontSize = 13;
@@ -182,8 +182,9 @@ export class DevScene {
         // Very simple syntax highlighting
         const keywords = ['const', 'let', 'var', 'async', 'await', 'for', 'of', 'return', 'then', 'function'];
         const functions = ['fetchGoals', 'createPlan', 'execute', 'celebrate', 'dream', 'console', 'log'];
-        const strings = /"[^"]*"|'[^']*'/g;
-        const comments = /\/\/.*/g;
+        // Regex patterns for future use
+        // const strings = /"[^"]*"|'[^']*'/g;
+        // const comments = /\/\/.*/g;
 
         let remaining = line;
         let i = 0;
