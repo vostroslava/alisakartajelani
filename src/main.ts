@@ -24,61 +24,80 @@ let _devScene: DevScene | null = null;
  * Initialize application
  */
 async function init(): Promise<void> {
-  // Initialize storage first
-  await initStorage();
+  console.log('[App] Starting initialization...');
 
-  // Initialize WebGL background
-  const bgCanvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
-  if (bgCanvas) {
-    backgroundRenderer = new BackgroundRenderer(bgCanvas);
-  }
+  try {
+    // Initialize storage first
+    console.log('[App] Calling initStorage...');
+    await initStorage();
+    console.log('[App] Storage initialized');
 
-  // Initialize animated canvas scenes
-  const travelZone = document.getElementById('bg-travel');
-  const devZone = document.getElementById('bg-dev');
+    // Initialize WebGL background
+    const bgCanvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
+    if (bgCanvas) {
+      console.log('[App] Initializing background renderer');
+      backgroundRenderer = new BackgroundRenderer(bgCanvas);
+    } else {
+      console.warn('[App] bg-canvas not found');
+    }
 
-  if (travelZone) {
-    _travelScene = new TravelScene(travelZone);
-  }
-  if (devZone) {
-    _devScene = new DevScene(devZone);
-  }
+    // Initialize animated canvas scenes
+    const travelZone = document.getElementById('bg-travel');
+    const devZone = document.getElementById('bg-dev');
 
-  // Initialize grid cells
-  const grid = document.getElementById('grid');
-  if (grid) {
-    initCells(
-      grid,
-      handleProgressChange,
-      handleCellEdit
-    );
+    if (travelZone) {
+      _travelScene = new TravelScene(travelZone);
+    }
+    if (devZone) {
+      _devScene = new DevScene(devZone);
+    }
 
-    // Verify 30 cells
-    const cellCount = grid.querySelectorAll('.cell').length;
-    console.assert(
-      cellCount === TOTAL_CELLS,
-      `Grid must have exactly ${TOTAL_CELLS} cells, found ${cellCount}`
-    );
-    console.log(`Vision Board initialized with ${cellCount} cells`);
-  }
+    // Initialize grid cells
+    console.log('[App] Initializing grid...');
+    const grid = document.getElementById('grid');
+    if (grid) {
+      console.log('[App] Grid element found, calling initCells');
+      initCells(
+        grid,
+        handleProgressChange,
+        handleCellEdit
+      );
 
-  // Initialize crop modal
-  initCropModal();
+      // Verify 30 cells
+      const cellCount = grid.querySelectorAll('.cell').length;
+      console.log(`[App] Grid verification: ${cellCount} cells created`);
 
-  // Initialize progress indicator
-  initProgress();
-  updateProgress(getFilledCount());
+      console.assert(
+        cellCount === TOTAL_CELLS,
+        `Grid must have exactly ${TOTAL_CELLS} cells, found ${cellCount}`
+      );
+    } else {
+      console.error('[App] Grid element NOT found');
+    }
 
-  // Initialize toolbar
-  initToolbar();
+    // Initialize crop modal
+    initCropModal();
 
-  // Initialize settings panel
-  initSettings();
+    // Initialize progress indicator
+    initProgress();
+    updateProgress(getFilledCount());
 
-  // Show settings panel (not hidden by default)
-  const settingsPanel = document.getElementById('settings-panel');
-  if (settingsPanel) {
-    settingsPanel.classList.remove('hidden');
+    // Initialize toolbar
+    initToolbar();
+
+    // Initialize settings panel
+    initSettings();
+
+    // Show settings panel (not hidden by default)
+    const settingsPanel = document.getElementById('settings-panel');
+    if (settingsPanel) {
+      settingsPanel.classList.remove('hidden');
+    }
+
+    console.log('[App] Initialization complete');
+
+  } catch (error) {
+    console.error('[App] Initialization FAILED:', error);
   }
 }
 

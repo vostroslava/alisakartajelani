@@ -31,17 +31,29 @@ let db: IDBDatabase | null = null;
  * Initialize IndexedDB
  */
 export async function initStorage(): Promise<void> {
+    console.log('[Storage] Initializing IndexedDB...');
     return new Promise((resolve, reject) => {
+        if (!window.indexedDB) {
+            console.error('[Storage] IndexedDB not supported');
+            reject(new Error('IndexedDB not supported'));
+            return;
+        }
+
         const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-        request.onerror = () => reject(request.error);
+        request.onerror = () => {
+            console.error('[Storage] DB Open Error:', request.error);
+            reject(request.error);
+        };
 
         request.onsuccess = () => {
+            console.log('[Storage] DB Opened Successfully');
             db = request.result;
             resolve();
         };
 
         request.onupgradeneeded = (e) => {
+            console.log('[Storage] DB Upgrade Needed');
             const database = (e.target as IDBOpenDBRequest).result;
             if (!database.objectStoreNames.contains(STORE_NAME)) {
                 database.createObjectStore(STORE_NAME, { keyPath: 'id' });
