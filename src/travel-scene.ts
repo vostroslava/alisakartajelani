@@ -6,15 +6,13 @@ export class TravelScene {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
     private animationId: number = 0;
-    private planeX: number = 0;
-    private planeY: number = 0;
     private time: number = 0;
 
-    // Flight path control points (bezier curve)
-    private startPoint = { x: -50, y: 0.7 };
-    private controlPoint1 = { x: 0.3, y: 0.4 };
-    private controlPoint2 = { x: 0.7, y: 0.5 };
-    private endPoint = { x: 1.1, y: 0.2 };
+    // Flight path control points (bezier curve) - airplane flies from bottom-left to top-right
+    private startPoint = { x: -0.1, y: 0.85 };
+    private controlPoint1 = { x: 0.25, y: 0.6 };
+    private controlPoint2 = { x: 0.6, y: 0.4 };
+    private endPoint = { x: 1.1, y: 0.15 };
 
     constructor(container: HTMLElement) {
         this.canvas = document.createElement('canvas');
