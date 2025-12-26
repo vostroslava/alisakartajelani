@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Dual-Universe Vision Board — премиальная интерактивная карта желаний" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <title>Dual-Universe Vision Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="bg-canvas"></canvas>
+      <div id="poster-container">
+        <div id="poster">
+          <div id="grid"></div>
+        </div>
+        <div id="toolbar"></div>
+        <div id="progress-indicator"></div>
+      </div>
+    </div>
+    
+    <!-- Crop Modal -->
+    <div id="crop-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <canvas id="crop-canvas"></canvas>
+        <div class="crop-controls">
+          <input type="range" id="zoom-slider" min="1" max="3" step="0.01" value="1" />
+          <input type="range" id="rotate-slider" min="-180" max="180" step="1" value="0" />
+          <div class="crop-buttons">
+            <button id="crop-cancel" class="btn-secondary">Отмена</button>
+            <button id="crop-apply" class="btn-primary">Применить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="panel hidden">
+      <button id="theme-toggle" title="Тема">🌡️</button>
+      <button id="export-png" title="Скачать PNG">📷</button>
+      <button id="export-json" title="Экспорт JSON">💾</button>
+      <button id="import-json" title="Импорт JSON">📂</button>
+      <button id="clear-all" title="Очистить всё">🗑️</button>
+      <input type="file" id="json-input" accept=".json" hidden />
+    </div>
+    
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
