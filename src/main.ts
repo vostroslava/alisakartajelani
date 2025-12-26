@@ -5,6 +5,8 @@
 
 import './style.css';
 import { BackgroundRenderer } from './background';
+import { TravelScene } from './travel-scene';
+import { DevScene } from './dev-scene';
 import { initCells, clearAllCells, getFilledCount } from './cell';
 import type { Cell } from './cell';
 import { initCropModal, openCropModal } from './crop-modal';
@@ -15,6 +17,8 @@ import { TOTAL_CELLS } from './grid';
 
 // Global state
 let backgroundRenderer: BackgroundRenderer | null = null;
+let travelScene: TravelScene | null = null;
+let devScene: DevScene | null = null;
 
 /**
  * Initialize application
@@ -27,6 +31,17 @@ async function init(): Promise<void> {
   const bgCanvas = document.getElementById('bg-canvas') as HTMLCanvasElement;
   if (bgCanvas) {
     backgroundRenderer = new BackgroundRenderer(bgCanvas);
+  }
+
+  // Initialize animated canvas scenes
+  const travelZone = document.getElementById('bg-travel');
+  const devZone = document.getElementById('bg-dev');
+
+  if (travelZone) {
+    travelScene = new TravelScene(travelZone);
+  }
+  if (devZone) {
+    devScene = new DevScene(devZone);
   }
 
   // Initialize grid cells
