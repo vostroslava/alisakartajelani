@@ -101,17 +101,30 @@ function handleCellClick(index: number): void {
     const cell = cells[index];
 
     if (cell.state === 'empty') {
-        // Open file picker
+        // Open file picker with mobile camera support
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
+        // Allow camera capture on mobile devices - commented to allow gallery access too
+        // input.setAttribute('capture', 'environment');
+
+        // Some mobile browsers need the input to be in DOM
+        input.style.position = 'absolute';
+        input.style.opacity = '0';
+        input.style.pointerEvents = 'none';
+        document.body.appendChild(input);
+
         input.onchange = async (e) => {
             const file = (e.target as HTMLInputElement).files?.[0];
             if (file) {
                 await addImageToCell(index, file);
             }
+            // Clean up
+            document.body.removeChild(input);
         };
-        input.click();
+
+        // Trigger click with slight delay for mobile compatibility
+        setTimeout(() => input.click(), 100);
     } else if (cell.state === 'filled' && onCellEdit) {
         onCellEdit(cell);
     }

@@ -661,23 +661,69 @@ body {
 
 /* Mobile optimizations */
 @media (max-width: 768px) {
+
+  /* Hide heavy canvas animations on mobile for performance */
+  #bg-images {
+    display: none;
+  }
+
+  /* Full width poster on mobile */
+  #poster-container {
+    padding: 10px;
+  }
+
+  #poster {
+    max-height: 85vh;
+    max-width: 95vw;
+    aspect-ratio: 3 / 4;
+  }
+
+  /* 3 columns x 10 rows for mobile - better touch targets */
+  #grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2%;
+  }
+
+  /* Larger cells for easier tapping */
+  .cell {
+    min-height: 60px;
+  }
+
+  .cell.empty::after {
+    font-size: 2em;
+  }
+
+  /* Always show toolbar on mobile */
   #toolbar {
-    padding: 8px 16px;
+    opacity: 1;
+    padding: 10px 16px;
     bottom: 10px;
   }
 
   .toolbar-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
   }
 
+  /* Settings panel more compact */
   #settings-panel {
     top: 10px;
     left: 10px;
     padding: 8px;
+    opacity: 0.8;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
+  #settings-panel button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  /* Progress indicator smaller */
   #progress-indicator {
     width: 50px;
     height: 50px;
@@ -685,14 +731,66 @@ body {
     right: 10px;
   }
 
+  /* Always show cell actions on mobile (no hover) */
   .cell-actions {
     opacity: 1;
   }
 
   .cell-action-btn {
-    width: 24px;
-    height: 24px;
-    font-size: 12px;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  /* Modal full-screen on mobile */
+  .modal-content {
+    max-width: 95vw;
+    max-height: 85vh;
+    padding: 16px;
+  }
+
+  #crop-canvas {
+    max-width: 100%;
+    max-height: 300px;
+  }
+
+  .crop-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  #poster {
+    aspect-ratio: 9 / 16;
+  }
+
+  #grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    gap: 3%;
+  }
+
+  #settings-panel {
+    display: none;
+  }
+
+  #toolbar {
+    padding: 8px 12px;
+    gap: 4px;
+  }
+
+  .toolbar-btn {
+    width: 40px;
+    height: 40px;
   }
 }
 
